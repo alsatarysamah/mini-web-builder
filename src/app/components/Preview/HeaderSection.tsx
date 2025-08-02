@@ -30,8 +30,9 @@ export default function HeaderSection({ id, selected, onSelect }: Props) {
       <input
         value={component.content}
         onChange={(e) => update(id, e.target.value)}
-        placeholder="Your Header Here"
-        className="w-full text-4xl font-extrabold text-indigo-700 bg-transparent outline-none"
+        placeholder="Your Title Here"
+        className="w-full text-2xl font-semibold text-gray-700 bg-transparent outline-none text-center"
+        autoFocus
       />
     </div>
   );

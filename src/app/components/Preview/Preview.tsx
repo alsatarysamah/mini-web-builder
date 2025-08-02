@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 import { useComponentStore } from "@/stores/componentStore";
 import HeaderSection from "./HeaderSection";
+import TitleSection from "./TitleSection";
 
 export default function Preview() {
   const components = useComponentStore((state) => state.components);
   const removeComponent = useComponentStore((state) => state.removeComponent);
-
+  console.log(useComponentStore.getState().components);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -45,9 +46,9 @@ export default function Preview() {
         switch (comp.type) {
           case "Header":
             return <HeaderSection key={comp.id} {...commonProps} />;
-          // case "Paragraph":
-          //   return <ParagraphSection key={comp.id} {...commonProps} />;
-          // add others...
+
+          case "Title":
+            return <TitleSection key={comp.id} {...commonProps} />;
           default:
             return null;
         }
