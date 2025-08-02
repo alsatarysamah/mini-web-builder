@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen overflow-auto scroll-smooth">
       <Header />
-      <main className="flex flex-col flex-grow text-center">
+      <main className="flex flex-col flex-grow text-center mx-5">
         <ComponentButtons />
         <Preview />
       </main>

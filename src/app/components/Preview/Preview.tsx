@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useComponentStore } from "@/stores/componentStore";
 import HeaderSection from "./HeaderSection";
 import TitleSection from "./TitleSection";
@@ -8,7 +8,6 @@ import TitleSection from "./TitleSection";
 export default function Preview() {
   const components = useComponentStore((state) => state.components);
   const removeComponent = useComponentStore((state) => state.removeComponent);
-  console.log(useComponentStore.getState().components);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -22,18 +21,10 @@ export default function Preview() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedId, removeComponent]);
 
-  if (components.length === 0) {
-    return (
-      <div className="flex-1 mx-10 my-5 border-2 border-dashed border-gray-300 bg-white rounded-xl shadow-md p-6 min-h-[300px]">
-        <p className="text-center text-gray-400">
-          🧱 Start adding sections from above...
-        </p>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex-1 mx-10 my-5 border-2 border-dashed border-gray-300 bg-white rounded-xl shadow-md p-6 min-h-[300px]">
+    <div
+      className="relative w-full h-[800px]  my-5 border-2 border-dashed border-gray-300 bg-white rounded-xl shadow-md"
+    >
       {components.map((comp) => {
         const isSelected = comp.id === selectedId;
 
@@ -41,12 +32,13 @@ export default function Preview() {
           id: comp.id,
           selected: isSelected,
           onSelect: () => setSelectedId(comp.id),
+          x: comp.x,
+          y: comp.y,
         };
 
         switch (comp.type) {
           case "Header":
             return <HeaderSection key={comp.id} {...commonProps} />;
-
           case "Title":
             return <TitleSection key={comp.id} {...commonProps} />;
           default:
