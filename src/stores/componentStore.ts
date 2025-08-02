@@ -32,11 +32,18 @@ export const useComponentStore = create<ComponentStore>()(
     (set) => ({
       components: [],
 
-      // Add new component with default x/y position
-      addComponent: (type) =>
+      addComponent: (type, componentHeight = 50, padding = 10) =>
         set((state) => {
           const count =
             state.components.filter((c) => c.type === type).length + 1;
+
+          const lastY =
+            state.components.length > 0
+              ? Math.max(...state.components.map((c) => c.y)) +
+                componentHeight +
+                padding
+              : 0;
+
           return {
             components: [
               ...state.components,
@@ -46,7 +53,7 @@ export const useComponentStore = create<ComponentStore>()(
                 content: "",
                 count,
                 x: 0,
-                y: 0,
+                y: lastY,
               },
             ],
           };
@@ -59,12 +66,42 @@ export const useComponentStore = create<ComponentStore>()(
           ),
         })),
 
-      updateComponentPosition: (id, x, y) =>
-        set((state) => ({
-          components: state.components.map((comp) =>
-            comp.id === id ? { ...comp, x, y } : comp
-          ),
-        })),
+      updateComponentPosition: (
+        id,
+        x,
+        y,
+        componentHeight = 50,
+        componentWidth = 280
+      ) =>
+        set((state) => {
+          const current = state.components.find((comp) => comp.id === id);
+          if (!current) return {};
+
+          const isOverlapping = (
+            a: { x: number; y: number },
+            b: { x: number; y: number }
+          ) => {
+            const xOverlap = Math.abs(a.x - b.x) < componentWidth;
+            const yOverlap = Math.abs(a.y - b.y) < componentHeight;
+            return xOverlap && yOverlap;
+          };
+
+          const hasOverlap = state.components.some(
+            (comp) =>
+              comp.id !== id &&
+              isOverlapping({ x, y }, { x: comp.x, y: comp.y })
+          );
+
+          if (hasOverlap) {
+            return {};
+          }
+
+          return {
+            components: state.components.map((comp) =>
+              comp.id === id ? { ...comp, x, y } : comp
+            ),
+          };
+        }),
 
       removeComponent: (id) =>
         set((state) => ({

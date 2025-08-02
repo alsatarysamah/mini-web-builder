@@ -1,7 +1,7 @@
 "use client";
 
 import { useComponentStore } from "@/stores/componentStore";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 type Props = {
   id: string;
@@ -13,6 +13,7 @@ type Props = {
 
 export default function HeaderSection({ id, selected, onSelect, x, y }: Props) {
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const ref = useRef<HTMLDivElement>(null);
 
   const component = useComponentStore((state) =>
     state.components.find((c) => c.id === id)
@@ -30,37 +31,40 @@ export default function HeaderSection({ id, selected, onSelect, x, y }: Props) {
     setDragOffset({ x: offsetX, y: offsetY });
   };
   const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
-    const parentRect = (
-      e.target as HTMLElement
-    ).parentElement?.getBoundingClientRect();
-    if (!parentRect) return;
+    const parentRect = e.currentTarget.parentElement?.getBoundingClientRect();
+    const compRect = ref.current?.getBoundingClientRect();
+    if (!parentRect || !compRect) return;
 
-    const newX = e.clientX - parentRect.left - dragOffset.x;
-    const newY = e.clientY - parentRect.top - dragOffset.y;
+    let newX = e.clientX - parentRect.left - dragOffset.x;
+    let newY = e.clientY - parentRect.top - dragOffset.y;
+
+    newX = Math.max(0, Math.min(newX, parentRect.width - compRect.width));
+    newY = Math.max(0, Math.min(newY, parentRect.height - compRect.height));
 
     updatePosition(id, newX, newY);
   };
 
   return (
     <div
+      ref={ref}
       draggable
       onClick={(e) => {
         e.stopPropagation();
         onSelect();
       }}
-      onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
       tabIndex={0}
-      style={{ left: x, top: y, width: "90%" }}
-      className={`absolute  p-4 border rounded-lg bg-gray-100 cursor-move items-center text-center ${
+      style={{ left: x, top: y, width: "98%" }}
+      className={`absolute p-4 m-2 border rounded-lg bg-gray-100 cursor-move items-center text-center ${
         selected ? "border-blue-600 ring-2 ring-blue-400" : "border-gray-300"
       }`}
     >
       <input
         value={component.content}
         onChange={(e) => update(id, e.target.value)}
-        placeholder="Edit Header"
-        className="mt-2 w-full bg-transparent border-none text-center outline-none text-blue-800 font-bold text-2xl"
+        placeholder="Add your Header"
+        className="mt-2 m-2 w-full bg-transparent border-none text-center outline-none text-blue-800 font-bold text-2xl"
       />
     </div>
   );

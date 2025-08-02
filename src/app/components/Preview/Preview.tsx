@@ -23,7 +23,7 @@ export default function Preview() {
 
   return (
     <div
-      className="relative w-full h-[800px]  my-5 border-2 border-dashed border-gray-300 bg-white rounded-xl shadow-md"
+      className="relative w-full h-[70vh] overflow-auto  my-5 border-2 border-dashed border-gray-300 bg-white rounded-xl shadow-md"
     >
       {components.map((comp) => {
         const isSelected = comp.id === selectedId;
