@@ -1,9 +1,18 @@
 import Image from "next/image";
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import ComponentButtons from "./components/ComponentButtons/ComponentButtons";
+import Preview from "./components/Preview/Preview";
 
 export default function Home() {
   return (
-   <div>
-    samah
-   </div>
+    <div className="flex flex-col min-h-screen overflow-auto scroll-smooth">
+      <Header />
+      <main className="flex flex-col flex-grow text-center">
+        <ComponentButtons />
+        <Preview />
+      </main>
+      <Footer />
+    </div>
   );
 }
