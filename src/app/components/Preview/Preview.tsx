@@ -5,6 +5,7 @@ import { useComponentStore } from "@/stores/componentStore";
 import HeaderSection from "./HeaderSection";
 import TitleSection from "./TitleSection";
 import ParagraphSection from "./ParagraphSection";
+import ImageSection from "./ImageSection";
 
 export default function Preview() {
   const components = useComponentStore((state) => state.components);
@@ -42,6 +43,8 @@ export default function Preview() {
             return <TitleSection key={comp.id} {...commonProps} />;
           case "Paragraph":
             return <ParagraphSection key={comp.id} {...commonProps} />;
+          case "Image":
+            return <ImageSection key={comp.id} {...commonProps} />;
           default:
             return null;
         }
