@@ -8,9 +8,17 @@ type Props = {
   onSelect: () => void;
   x: number;
   y: number;
+  placeholder: string;
 };
 
-export default function TitleSection({ id, selected, onSelect, x, y }: Props) {
+export default function GeneralSection({
+  id,
+  selected,
+  onSelect,
+  x,
+  y,
+  placeholder = "",
+}: Props) {
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const ref = useRef<HTMLDivElement>(null);
 
@@ -40,7 +48,7 @@ export default function TitleSection({ id, selected, onSelect, x, y }: Props) {
     let newX = e.clientX - parentRect.left - dragOffset.x;
     let newY = e.clientY - parentRect.top - dragOffset.y;
 
-    newX = Math.max(0, Math.min(newX, parentRect.width - compRect.width ));
+    newX = Math.max(0, Math.min(newX, parentRect.width - compRect.width));
     newY = Math.max(0, Math.min(newY, parentRect.height - compRect.height));
 
     updatePosition(id, newX, newY);
@@ -65,7 +73,7 @@ export default function TitleSection({ id, selected, onSelect, x, y }: Props) {
       <input
         value={component.content}
         onChange={(e) => update(id, e.target.value)}
-        placeholder="Your Title Here"
+        placeholder={placeholder}
         className="w-full text-2xl font-semibold text-gray-700 bg-transparent outline-none text-center"
       />
     </div>

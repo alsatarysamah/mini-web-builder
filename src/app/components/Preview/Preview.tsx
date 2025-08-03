@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useComponentStore } from "@/stores/componentStore";
 import HeaderSection from "./HeaderSection";
-import TitleSection from "./TitleSection";
+import GeneralSection from "./GeneralSection";
 import ParagraphSection from "./ParagraphSection";
 import ImageSection from "./ImageSection";
 
@@ -40,11 +40,25 @@ export default function Preview() {
           case "Header":
             return <HeaderSection key={comp.id} {...commonProps} />;
           case "Title":
-            return <TitleSection key={comp.id} {...commonProps} />;
+            return (
+              <GeneralSection
+                key={comp.id}
+                {...commonProps}
+                placeholder="Your Title Here"
+              />
+            );
           case "Paragraph":
             return <ParagraphSection key={comp.id} {...commonProps} />;
           case "Image":
             return <ImageSection key={comp.id} {...commonProps} />;
+          case "Footer":
+            return (
+              <GeneralSection
+                key={comp.id}
+                {...commonProps}
+                placeholder="Your Footer Here"
+              />
+            );
           default:
             return null;
         }
