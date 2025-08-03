@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useComponentStore } from "@/stores/componentStore";
 import HeaderSection from "./HeaderSection";
 import TitleSection from "./TitleSection";
+import ParagraphSection from "./ParagraphSection";
 
 export default function Preview() {
   const components = useComponentStore((state) => state.components);
@@ -22,9 +23,7 @@ export default function Preview() {
   }, [selectedId, removeComponent]);
 
   return (
-    <div
-      className="relative w-full h-[70vh] overflow-auto  my-5 border-2 border-dashed border-gray-300 bg-white rounded-xl shadow-md"
-    >
+    <div className="relative w-full h-[70vh] overflow-x-hidden py-5  my-5 border-2 border-dashed border-gray-300 bg-white rounded-xl shadow-md">
       {components.map((comp) => {
         const isSelected = comp.id === selectedId;
 
@@ -41,6 +40,8 @@ export default function Preview() {
             return <HeaderSection key={comp.id} {...commonProps} />;
           case "Title":
             return <TitleSection key={comp.id} {...commonProps} />;
+          case "Paragraph":
+            return <ParagraphSection key={comp.id} {...commonProps} />;
           default:
             return null;
         }

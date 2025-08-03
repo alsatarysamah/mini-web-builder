@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { nanoid } from "nanoid";
+import { getComponentHeight } from "@/utils/componentHelpers";
 
 export type ComponentType =
   | "Header"
@@ -32,7 +33,7 @@ export const useComponentStore = create<ComponentStore>()(
     (set) => ({
       components: [],
 
-      addComponent: (type, componentHeight = 50, padding = 10) =>
+      addComponent: (type, padding = 50) =>
         set((state) => {
           const count =
             state.components.filter((c) => c.type === type).length + 1;
@@ -40,7 +41,7 @@ export const useComponentStore = create<ComponentStore>()(
           const lastY =
             state.components.length > 0
               ? Math.max(...state.components.map((c) => c.y)) +
-                componentHeight +
+                getComponentHeight(type) +
                 padding
               : 0;
 
@@ -66,13 +67,7 @@ export const useComponentStore = create<ComponentStore>()(
           ),
         })),
 
-      updateComponentPosition: (
-        id,
-        x,
-        y,
-        componentHeight = 50,
-        componentWidth = 280
-      ) =>
+      updateComponentPosition: (id, x, y, componentWidth = 280) =>
         set((state) => {
           const current = state.components.find((comp) => comp.id === id);
           if (!current) return {};
@@ -82,7 +77,8 @@ export const useComponentStore = create<ComponentStore>()(
             b: { x: number; y: number }
           ) => {
             const xOverlap = Math.abs(a.x - b.x) < componentWidth;
-            const yOverlap = Math.abs(a.y - b.y) < componentHeight;
+            const yOverlap =
+              Math.abs(a.y - b.y) < getComponentHeight(current.type);
             return xOverlap && yOverlap;
           };
 

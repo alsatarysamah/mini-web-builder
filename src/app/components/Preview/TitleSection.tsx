@@ -40,7 +40,7 @@ export default function TitleSection({ id, selected, onSelect, x, y }: Props) {
     let newX = e.clientX - parentRect.left - dragOffset.x;
     let newY = e.clientY - parentRect.top - dragOffset.y;
 
-    newX = Math.max(0, Math.min(newX, parentRect.width - compRect.width));
+    newX = Math.max(0, Math.min(newX, parentRect.width - compRect.width ));
     newY = Math.max(0, Math.min(newY, parentRect.height - compRect.height));
 
     updatePosition(id, newX, newY);
@@ -57,7 +57,7 @@ export default function TitleSection({ id, selected, onSelect, x, y }: Props) {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       tabIndex={0}
-      style={{ left: x, top: y, width: "98%" }}
+      style={{ left: x, top: y + 5, width: "100%" }}
       className={`absolute p-4 border rounded-lg bg-gray-50 cursor-move items-center ${
         selected ? "border-gray-600 ring-2 ring-gray-400" : "border-gray-300"
       }`}
