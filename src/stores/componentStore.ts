@@ -29,7 +29,7 @@ type ComponentStore = {
   updateComponentPosition: (id: string, x: number, y: number) => void;
   removeComponent: (id: string) => void;
   setComponents: (components: ComponentInstance[]) => void;
-  resetComponents:()=>void
+  resetComponents: () => void;
 };
 
 export const useComponentStore = create<ComponentStore>()(
@@ -109,7 +109,8 @@ export const useComponentStore = create<ComponentStore>()(
           components: state.components.filter((comp) => comp.id !== id),
         })),
 
-      setComponents: (components) => set({ components }),
+      setComponents: (newComponents) => set({ components: newComponents }),
+
       resetComponents: () => set({ components: [] }),
     }),
     {
