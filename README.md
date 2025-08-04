@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 WebBuilder
 
-## Getting Started
+A sleek and intuitive **drag-and-drop website builder** built with **Next.js**, **Zustand**, and **TypeScript** — allowing users to dynamically place, edit, and manage page components like headers, images, text blocks, and footers in real time.
 
-First, run the development server:
+🔗 **Live Demo**: [mini-web-builder.vercel.app](https://mini-web-builder-4xrt2dutn-alsatarysamahs-projects.vercel.app/)
+
+
+
+## 🚀 Features
+
+- 🧩 **Component-based builder** – Add headers, titles, paragraphs, images, and footers with a click.
+- 🖱️ **Drag & Drop positioning** – Move components freely with smart collision detection.
+- ✍️ **Live editing** – Inline content editing with real-time updates.
+- 📦 **Import/Export** – Save and restore page layouts via JSON files.
+- 💾 **Local persistence** – Components persist across sessions using local storage.
+- 💡 **Fully typed** – Built with TypeScript for type safety and developer confidence.
+
+---
+
+## 🛠️ Tech Stack
+
+| Tech        | Description                     |
+|-------------|---------------------------------|
+| Next.js     | React Framework (App Router)    |
+| TypeScript  | Strong typing for scalability   |
+| Zustand     | Lightweight global state        |
+| Tailwind CSS| Utility-first CSS styling       |
+| Lucide Icons| Beautiful, customizable icons   |
+
+---
+
+## 📦 Installation
 
 ```bash
+git clone https://github.com/your-username/web-builder.git
+cd web-builder
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
