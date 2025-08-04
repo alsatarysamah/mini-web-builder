@@ -42,7 +42,7 @@ export const useComponentStore = create<ComponentStore>()(
           const count =
             state.components.filter((c) => c.type === type).length + 1;
 
-          const GAP = 10;
+          const GAP = 12;
 
           const lastBottom = state.components.reduce((max, comp) => {
             const compBottom = comp.y + getComponentHeight(comp.type);
