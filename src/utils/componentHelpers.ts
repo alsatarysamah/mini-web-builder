@@ -19,15 +19,14 @@ export const getComponentHeight = (type: ComponentType): number => {
 export function getComponentWidth(type: string): number {
   switch (type) {
     case "Header":
-      return 200;
     case "Title":
     case "Footer":
-      return 180;
+      return 280;
     case "Paragraph":
-      return 250;
+      return 145;
     case "Image":
       return 600;
-    case "Footer":
+
     default:
       return 110;
   }

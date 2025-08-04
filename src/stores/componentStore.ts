@@ -44,10 +44,12 @@ export const useComponentStore = create<ComponentStore>()(
 
           const GAP = 10;
 
-          const lastComponent = state.components[state.components.length - 1];
-          const lastY = lastComponent
-            ? lastComponent.y + getComponentHeight(lastComponent.type) + GAP
-            : 0;
+          const lastBottom = state.components.reduce((max, comp) => {
+            const compBottom = comp.y + getComponentHeight(comp.type);
+            return compBottom > max ? compBottom : max;
+          }, 0);
+
+          const newY = lastBottom + GAP;
 
           return {
             components: [
@@ -58,7 +60,7 @@ export const useComponentStore = create<ComponentStore>()(
                 content: "",
                 count,
                 x: 0,
-                y: lastY,
+                y: newY,
               },
             ],
           };
@@ -76,25 +78,44 @@ export const useComponentStore = create<ComponentStore>()(
           const current = state.components.find((comp) => comp.id === id);
           if (!current) return {};
 
+          const currentWidth = getComponentWidth(current.type);
+          const currentHeight = getComponentHeight(current.type);
+
+          // Helper to check if two rectangles overlap
           const isOverlapping = (
-            a: { x: number; y: number },
-            b: { x: number; y: number }
+            rect1: { x: number; y: number; width: number; height: number },
+            rect2: { x: number; y: number; width: number; height: number }
           ) => {
-            const xOverlap =
-              Math.abs(a.x - b.x) < getComponentWidth(current.type);
-            const yOverlap =
-              Math.abs(a.y - b.y) < getComponentHeight(current.type);
-            return xOverlap && yOverlap;
+            return !(
+              rect1.x + rect1.width <= rect2.x ||
+              rect1.x >= rect2.x + rect2.width ||
+              rect1.y + rect1.height <= rect2.y ||
+              rect1.y >= rect2.y + rect2.height
+            );
           };
 
-          const hasOverlap = state.components.some(
-            (comp) =>
-              comp.id !== id &&
-              isOverlapping({ x, y }, { x: comp.x, y: comp.y })
-          );
+          const newRect = {
+            x,
+            y,
+            width: currentWidth,
+            height: currentHeight,
+          };
+
+          const hasOverlap = state.components.some((comp) => {
+            if (comp.id === id) return false;
+
+            const otherRect = {
+              x: comp.x,
+              y: comp.y,
+              width: getComponentWidth(comp.type),
+              height: getComponentHeight(comp.type),
+            };
+
+            return isOverlapping(newRect, otherRect);
+          });
 
           if (hasOverlap) {
-            return {};
+            return {}; // reject position update if overlap is found
           }
 
           return {
