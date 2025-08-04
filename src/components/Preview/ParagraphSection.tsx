@@ -1,7 +1,7 @@
 "use client";
 
 import { useComponentStore } from "@/stores/componentStore";
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 
 type Props = {
   id: string;
@@ -29,17 +29,6 @@ export default function ParagraphSection({
     (state) => state.updateComponentPosition
   );
 
-  useEffect(() => {
-    if (ref.current && component) {
-      const rect = ref.current.getBoundingClientRect();
-      useComponentStore.setState((state) => ({
-        components: state.components.map((c) =>
-          c.id === id ? { ...c, width: rect.width, height: rect.height } : c
-        ),
-      }));
-    }
-  }, [id]);
-
   if (!component) return null;
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
@@ -50,26 +39,16 @@ export default function ParagraphSection({
 
   const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
     const parentRect = e.currentTarget.parentElement?.getBoundingClientRect();
-    if (!parentRect || !ref.current || !component) return;
+    const compRect = ref.current?.getBoundingClientRect();
+    if (!parentRect || !compRect) return;
 
     let newX = e.clientX - parentRect.left - dragOffset.x;
     let newY = e.clientY - parentRect.top - dragOffset.y;
 
-    newX = Math.max(0, Math.min(newX, parentRect.width - component.width));
-    newY = Math.max(0, Math.min(newY, parentRect.height - component.height));
+    newX = Math.max(0, Math.min(newX, parentRect.width - compRect.width));
+    newY = Math.max(0, Math.min(newY, parentRect.height - compRect.height));
 
-    const accepted = updatePosition(id, newX, newY);
-
-    if (!accepted) {
-      // TODO: Add a visual shake or toast here to indicate rejection
-    } else {
-      const rect = ref.current.getBoundingClientRect();
-      useComponentStore.setState((state) => ({
-        components: state.components.map((c) =>
-          c.id === id ? { ...c, width: rect.width, height: rect.height } : c
-        ),
-      }));
-    }
+    updatePosition(id, newX, newY);
   };
 
   return (
