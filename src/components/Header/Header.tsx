@@ -25,13 +25,6 @@ export default function Header() {
         <div className="flex space-x-4">
           <ImportExportControls />
 
-          <button
-            onClick={handleReset}
-            className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 border border-red-100 rounded-xl hover:bg-red-100 transition shadow-sm"
-          >
-            <Trash2 className="w-5 h-5" />
-            <span className="font-medium">Reset</span>
-          </button>
         </div>
       </div>
     </header>

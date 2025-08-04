@@ -15,8 +15,6 @@ export default function ParagraphSection({
   id,
   selected,
   onSelect,
-  x,
-  y,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -84,7 +82,12 @@ export default function ParagraphSection({
       }}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      style={{ left: component.x, top: component.y }}
+      style={{
+        left: component.x,
+        top: component.y,
+        minWidth: "738px",
+        maxWidth: "738px",
+      }}
       tabIndex={0}
       className={`absolute w-1/2 p-4 border rounded-lg bg-gray-50 cursor-move ${
         selected ? "border-gray-600 ring-2 ring-gray-400" : "border-gray-300"

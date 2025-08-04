@@ -55,7 +55,7 @@ export default function HeaderSection({ id, selected, onSelect, x, y }: Props) {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       tabIndex={0}
-      style={{ left: x, top: y, width: "98%" }}
+      style={{ left: x, top: y + 5, minWidth: "1470px", maxWidth: "1470px" }}
       className={`absolute p-4 m-2 border rounded-lg bg-gray-100 cursor-move items-center text-center ${
         selected ? "border-blue-600 ring-2 ring-blue-400" : "border-gray-300"
       }`}

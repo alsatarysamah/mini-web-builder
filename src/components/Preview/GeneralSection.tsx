@@ -65,7 +65,7 @@ export default function GeneralSection({
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       tabIndex={0}
-      style={{ left: x, top: y + 5, width: "100%" }}
+      style={{ left: x, top: y + 5, minWidth: "1470px", maxWidth: "1470px" }}
       className={`absolute p-4 border rounded-lg bg-gray-50 cursor-move items-center ${
         selected ? "border-gray-600 ring-2 ring-gray-400" : "border-gray-300"
       }`}
