@@ -32,7 +32,7 @@ A sleek and intuitive **drag-and-drop website builder** built with **Next.js**, 
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/your-username/web-builder.git
+git clone https://github.com/alsatarysamah/mini-web-builder.git
 cd web-builder
 npm install
 npm run dev
