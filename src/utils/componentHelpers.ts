@@ -21,9 +21,9 @@ export function getComponentWidth(type: string): number {
     case "Header":
     case "Title":
     case "Footer":
-      return 280;
+      return 1477;
     case "Paragraph":
-      return 145;
+      return 738;
     case "Image":
       return 600;
 
