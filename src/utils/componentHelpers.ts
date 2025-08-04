@@ -10,7 +10,7 @@ export const getComponentHeight = (type: ComponentType): number => {
     case "Footer":
       return 60;
     case "Image":
-      return 400;
+      return 420;
     default:
       return 50;
   }

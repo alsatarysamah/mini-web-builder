@@ -66,57 +66,54 @@ export default function ImageSection({ id, selected, onSelect, x, y }: Props) {
   };
 
   return (
-    <div
-      ref={ref}
-      draggable
-      onClick={(e) => {
-        e.stopPropagation();
-        onSelect();
-      }}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-      tabIndex={0}
-      style={{
-        left: x,
-        top: y,
-        width: "600px",
-        height: "400px",
-      }}
-      className={`absolute p-4 border rounded-lg bg-white cursor-move flex flex-col justify-center items-center gap-2 ${
-        selected ? "border-blue-600 ring-2 ring-blue-400" : "border-gray-300"
-      }`}
-    >
+  <div
+    ref={ref}
+    draggable
+    onClick={(e) => {
+      e.stopPropagation();
+      onSelect();
+    }}
+    onDragStart={handleDragStart}
+    onDragEnd={handleDragEnd}
+    tabIndex={0}
+    style={{
+      left: x,
+      top: y,
+    }}
+    className={`absolute p-4 border rounded-lg bg-white cursor-move flex flex-col justify-center items-center gap-2 max-w-full w-[90vw] sm:w-[600px] aspect-[3/2] ${
+      selected ? "border-blue-600 ring-2 ring-blue-400" : "border-gray-300"
+    }`}
+  >
+    <div className="w-full h-full flex justify-center items-center overflow-hidden">
       {component.content ? (
-        <div className="w-full h-full flex justify-center items-center overflow-hidden">
-          <Image
-            src={component.content}
-            alt="Uploaded"
-            height={50}
-            width={50}
-            className="w-full h-full object-contain rounded"
-          />
-        </div>
+        <Image
+          src={component.content}
+          alt="Uploaded"
+          fill
+          className="object-contain rounded"
+        />
       ) : (
         <div className="flex flex-col items-center justify-center text-gray-400 w-full h-full bg-gray-50">
           <LucideImage className="text-6xl opacity-20" />
           <p className="text-sm mt-2">Upload an image</p>
         </div>
       )}
-
-      {/* Fancy File Upload Button */}
-      <label
-        htmlFor={`file-input-${id}`}
-        className="cursor-pointer bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded shadow hover:opacity-90 transition"
-      >
-        {component.content ? "Change Your Image" : "Upload an Image"}
-      </label>
-      <input
-        id={`file-input-${id}`}
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="hidden"
-      />
     </div>
-  );
+
+    <label
+      htmlFor={`file-input-${id}`}
+      className="cursor-pointer bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded shadow hover:opacity-90 transition"
+    >
+      {component.content ? "Change Your Image" : "Upload an Image"}
+    </label>
+    <input
+      id={`file-input-${id}`}
+      type="file"
+      accept="image/*"
+      onChange={handleFileChange}
+      className="hidden"
+    />
+  </div>
+);
+
 }
