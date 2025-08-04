@@ -12,7 +12,7 @@ A sleek and intuitive **drag-and-drop website builder** built with **Next.js**, 
 - 🖱️ **Drag & Drop positioning** – Move components freely with smart collision detection.
 - ✍️ **Live editing** – Inline content editing with real-time updates.
 - 📦 **Import/Export** – Save and restore page layouts via JSON files.
-- 💾 **Local persistence** – Components persist across sessions using local storage.
+- 💾 **Local persistence** – Components persist across sessions using sessionStorage.
 - 💡 **Fully typed** – Built with TypeScript for type safety and developer confidence.
 
 ---
