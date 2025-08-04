@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
-import ComponentButtons from "./components/ComponentButtons/ComponentButtons";
-import Preview from "./components/Preview/Preview";
+
+import ComponentButtons from "@/components/ComponentButtons/ComponentButtons";
+import Footer from "@/components/Footer/Footer";
+import Header from "@/components/Header/Header";
+import Preview from "@/components/Preview/Preview";
 
 export default function Home() {
   return (
